@@ -1,1 +1,74 @@
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Centralita.Migrations
+{
+    [DbContext(typeof(BloggingContext))]
+    [Migration("20240407001542_initialcreate")]
+    public partial class InitialCreate : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Llamadas",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CostoLlamada = table.Column<int>(type: "INTEGER", nullable: false),
+                    Destino = table.Column<string>(type: "TEXT", nullable: false),
+                    Duracion = table.Column<int>(type: "INTEGER", nullable: false),
+                    Origen = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Llamadas", x => x.ID);
+                });
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Llamadas");
+        }
+    }
+}
+using Centralita1;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
+namespace Centralita.Migrations
+{
+    [DbContext(typeof(BloggingContext))]
+    public partial class BloggingContextModelSnapshot : ModelSnapshot
+    {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity("Centralita1.Llamada", b =>
+            {
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
+
+                b.Property<int>("CostoLlamada")
+                    .HasColumnType("INTEGER");
+
+                b.Property<string>("Destino")
+                    .IsRequired()
+                    .HasColumnType("TEXT");
+
+                b.Property<int>("Duracion")
+                    .HasColumnType("INTEGER");
+
+                b.Property<string>("Origen")
+                    .IsRequired()
+                    .HasColumnType("TEXT");
+
+                b.HasKey("ID");
+
+                b.ToTable("Llamadas");
+            });
+        }
+    }
+}
